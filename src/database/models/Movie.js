@@ -11,7 +11,13 @@ module.exports = (sequelize, dataTypes) => {
         // updated_at: dataTypes.TIMESTAMP,
         title: {
             type: dataTypes.STRING(500),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull:{msg: "mandá algun dato"}
+
+            }
+
+
         },
         rating: {
             type: dataTypes.DECIMAL(3, 1).UNSIGNED,
@@ -33,9 +39,9 @@ module.exports = (sequelize, dataTypes) => {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         deletedAt: false,
-        tableName:'movies'
+        tableName: 'movies'
     }
-    const Movie = sequelize.define(alias,cols,config);
+    const Movie = sequelize.define(alias, cols, config);
 
     Movie.associate = function (models) {
         Movie.belongsTo(models.Genre, { // models.Genre -> Genres es el valor de alias en genres.js
