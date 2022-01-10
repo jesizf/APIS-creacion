@@ -1,8 +1,5 @@
 const path = require('path');
 const db = require('../../database/models');
-const sequelize = db.sequelize;
-const { Op } = require("sequelize");
-const moment = require('moment');
 
 const throwError = (res, error) => {
     console.log(error)
@@ -13,19 +10,17 @@ const throwError = (res, error) => {
         data: error.message
     })
 }
-
-
-module.exports = {
+module.exports={
     list: async (req, res) => {
         try {
-            let genres = await db.Genre.findAll();
+            let movies = await db.Movie.findAll();
             let response = {
                 meta: {
                     status: 200,
-                    total: genres.length,
-                    link: 'api/genres'
+                    total: movies.length,
+                    link: 'api/movies'
                 },
-                data: genres
+                data: movies
             }
 
             return res.status(200).json(response)
@@ -45,10 +40,10 @@ module.exports = {
                 throw error
             }
 
-            let genre = await db.Genre.findByPk(req.params.id);
+            let movie= await db.Movie.findByPk(req.params.id);
 
 
-            if (!genre) {
+            if (!movie) {
                 let error = new Error('ID inexistente');
                 error.status = 404;
                 throw error
@@ -57,9 +52,9 @@ module.exports = {
             let response = {
                 meta: {
                     status: 200,
-                    link: 'api/genres' + req.params.id
+                    link: 'api/movies' + req.params.id
                 },
-                data: genre
+                data: movie
             }
             return res.status(200).json(response)
 
@@ -67,5 +62,7 @@ module.exports = {
 
             throwError(res, error)
         }
+    }, create: (req, res)=>{
+        
     }
 }
