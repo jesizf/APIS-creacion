@@ -13,7 +13,8 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.STRING(500),
             allowNull: false,
             validate: {
-                notNull:{msg: "mandá algun dato"}
+                notNull:{msg: "El titulo no puede ser nulo"},
+                notEmpty:{msg: "El titulo es obligatorio"}
 
             }
 
@@ -21,15 +22,32 @@ module.exports = (sequelize, dataTypes) => {
         },
         rating: {
             type: dataTypes.DECIMAL(3, 1).UNSIGNED,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull:{msg: "El rating no puede ser nulo"},
+                notEmpty:{msg: "El rating es obligatorio"},
+                notNull:{msg: "El rating no puede ser nulo"},
+                isDecimal:{msg: "El rating tiene que ser un valor entre 1 y 99.9"}
+
+            }
         },
         awards: {
             type: dataTypes.BIGINT(10).UNSIGNED,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull:{msg: "El awards no puede ser nulo"},
+                notEmpty:{msg: "El premio/s es obligatorio"}
+
+            }
         },
         release_date: {
             type: dataTypes.DATEONLY,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull:{msg: "El release date no puede ser nulo"},
+                notEmpty:{msg: "El release es obligatorio"}
+
+            }
         },
         length: dataTypes.BIGINT(10),
         genre_id: dataTypes.BIGINT(10)
