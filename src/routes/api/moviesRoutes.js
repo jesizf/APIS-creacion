@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {list,detail} = require('../../controllers/api/moviesController');
+const {list,detail, create} = require('../../controllers/api/moviesController');
 
 router.get('/', list)
-        .get('/:id',detail);
+        .get('/:id',detail)
+        .post('/', create);
 
 
 module.exports = router;

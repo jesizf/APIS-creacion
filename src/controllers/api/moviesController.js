@@ -10,7 +10,7 @@ const throwError = (res, error) => {
         data: error.message
     })
 }
-module.exports={
+module.exports = {
     list: async (req, res) => {
         try {
             let movies = await db.Movie.findAll();
@@ -40,7 +40,7 @@ module.exports={
                 throw error
             }
 
-            let movie= await db.Movie.findByPk(req.params.id);
+            let movie = await db.Movie.findByPk(req.params.id);
 
 
             if (!movie) {
@@ -62,7 +62,29 @@ module.exports={
 
             throwError(res, error)
         }
-    }, create: (req, res)=>{
-        
-    }
-}
+    },
+    create: async (req, res) => {
+        try {
+            let movie =await db.Movie.create({
+                ...req.body
+            })
+            let response = {
+                meta: {
+                    status: 200,
+                    link: 'api/movies' + movie.id,
+                    msg: 'pelicula creada con exito'
+                },
+                data: movie
+            }
+            return res.status(200).json(response)
+
+        }catch (error) {
+            console.log(error);
+          return res.status(400).json({
+            meta : {
+                status : 400
+            },
+            data : error.errors.map(error => error.message)
+          })
+        }
+    }}
