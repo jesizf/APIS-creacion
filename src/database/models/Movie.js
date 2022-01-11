@@ -27,7 +27,11 @@ module.exports = (sequelize, dataTypes) => {
                 notNull:{msg: "El rating no puede ser nulo"},
                 notEmpty:{msg: "El rating es obligatorio"},
                 notNull:{msg: "El rating no puede ser nulo"},
-                isDecimal:{msg: "El rating tiene que ser un valor entre 1 y 99.9"}
+                isDecimal:{msg: "El rating tiene que ser un valor entre 1 y 99.9"},
+                max:{
+                    args:99.9,
+                    msg:"maximo permitido 99.9"
+                }
 
             }
         },
@@ -36,8 +40,12 @@ module.exports = (sequelize, dataTypes) => {
             allowNull: false,
             validate: {
                 notNull:{msg: "El awards no puede ser nulo"},
-                notEmpty:{msg: "El premio/s es obligatorio"}
+                notEmpty:{msg: "El premio/s es obligatorio"},
+                
+                isInt:{
+                    msg:"solo soporta numeros"
 
+                }
             }
         },
         release_date: {
